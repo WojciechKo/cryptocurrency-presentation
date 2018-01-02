@@ -394,7 +394,15 @@ Opis koncepcji i mechanizmów wykorzystanych przy tworzeniu kryptowalut.
 
 
 \section{Wstęp}
-% no \IEEEPARstart
+
+Niniejszy artykuł przedstawia jakie problemy z pieniędzmi istnieją w dzisiejszym świecie i w jaki sposób pojawienie się
+kryptowalut może pomóc je rozwiązać. Następnie skupimy się na matematycznych koncepctach które zostały wykorzystane przy
+projektowaniu kryptowalut oraz samą architektórę kryptowalut. Opisane zostanie czym jest Blockchain, co oznacza kopanie
+bloków a także to w jaki sposób zapewniane jest bezpieczeństwo oraz czym jest fork w kontekcie Blockchainu. Pod koniec
+opiszę co nowego wprowadza Ethereum w stosunku do Bitcoina.
+
+\subsection{Historia waluty}
+
 Od zarania dziejów na świecie istniał handel. Zanim jednak postały waluty, ludzie wymieniali się między sobą rozmaitymi
 dobrami w sposób bezpośredni. Jeden z problemów który występuje podczas takiej wymiany jest problem z wydaniem reszty.
 Przykładowo, jeżeli ktoś kto hodował świnie i potrzebował kostkę masła, musiał wymienić całą świnię na dużą ilość masła.
@@ -404,21 +412,27 @@ następnie część przeznaczyć na zakup masła. Inny problem który istnieje w
 wartości jednych dóbr w stosunku do innych. Zdecydowanie łatwiej jest sprowadzić wartość dóbr do wspólnej waluty co
 pozwala na łatwiejsze określenie w jakim stosunku powinna zostać dokonana wymiana jednego dobra z inne.
 
-Niniejszy artykuł przedstawi jakie problemy z pieniędzmi istnieją w dzisiejszym świecie i w jaki sposób pojawienie się
-kryptowalut może pomóc je rozwiązać.  W kolejnym rozdziale przedstawię matematyczne koncepcje które zostały wykorzystane
-przy projektowaniu kryptowalut.  Następnie opiszę architekturę kryptowalut, czyli czym jest Blockchain, co oznacza
-kopanie bloków a także w jaki sposób zapewniane jest bezpieczeństwo oraz czym jest fork Blockchaina.  Kolejny rozdział
-poświęcę na opisane co nowego umożliwia Ethereum w stosunku do Bitcoina.
 
 % \hfill mds
 % \hfill August 26, 2015
 
-\section{Wartość waluty}
-W tym rozdziale chciałbym się
+\subsection{Rola banków}
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+Jeżeli posiadamy pieniądze, ale nie chcemy być odpowiedzialni za ich przechowywanie możemy skorzystać z usług Banku.
+Podstawową operacją jaką możemy wykonać w Banku jest możliwość zdeponowaniae oraz pobrania wcześniej zdeponowanych
+środków. Kolejną z operacji jest wykonanie transferu środków z jednego konta na inne konto. Taka operacja umożliwia
+transfer środków innej osobie bez konieczności bezpośredniego przekazania pieniędzy w postaci monet czy banknotów. W
+takiej sytuacji Bank poświadcza że właściciel konta przekazał swoje środki innej osobie dzięki czemu ta może je dalej
+przekazać. Taka rola sprawa że Banki są jedną z instytucji zaufania publicznego. Znaczy to między innymi to że
+społeczeństwo wierzy iż w każdej chwili może odebrać powierzone Bankowi pieniądze co nie jak pokazuje historia nie
+zawsze jest prawdą. Przykładem posłuży sytuacja Grecji z 2015 roku gdzie w wyniku kryzysu finansowego greckie Banki
+zostały zamknięte a wypłaty z bankomatów ograniczone do 60 euro na dzień.\cite{kryzysGrecji}
 
+Fakt iż Bank jest odpowiedzialny za weryfikację czy dana osoba posiada odpowiednią ilość środków do wykonania transferu
+wymusza prowadzenie rejestru. W rejestrze znajdują się informacje przypisane do danego konta, historia wszystkich
+transferów oraz wynikająca z nich liczba zgromadzonych na koncie środków. Na banku spoczywa odpowiedzialność aby
+zawartość rejestru nie wpadła w niepowołane ręce oraz to aby rejestr nie przepał co spowodowałoby utratę zgromadzonych
+przez klientów środków gdyż tylko on jest dokumentem poświadczającym stan konta.
 
 \subsubsection{Subsubsection Heading Here}
 Subsubsection text here.
@@ -555,25 +569,8 @@ The authors would like to thank...
 % http://mirror.ctan.org/biblio/bibtex/contrib/doc/
 % The IEEEtran BibTeX style support page is at:
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-\begin{thebibliography}{1}
-
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\end{thebibliography}
-
-
-
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
 
 % that's all folks
 \end{document}
-
-
