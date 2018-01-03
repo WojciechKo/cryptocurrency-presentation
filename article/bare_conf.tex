@@ -158,7 +158,7 @@
 
 % *** MATH PACKAGES ***
 %
-%\usepackage{amsmath}
+\usepackage{amsmath}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics.
 %
@@ -431,6 +431,29 @@ wymusza prowadzenie rejestru. W rejestrze znajdują się informacje przypisane d
 transferów oraz wynikająca z nich liczba zgromadzonych na koncie środków. Na banku spoczywa odpowiedzialność aby
 zawartość rejestru nie wpadła w niepowołane ręce oraz to aby rejestr nie przepał co spowodowałoby utratę zgromadzonych
 przez klientów środków gdyż tylko on jest dokumentem poświadczającym stan konta.
+
+\section{Matematyka}
+
+W tym rozdziale omówię matematyczne koncepty które zostały wykorzystane przy projektowaniu kryptowalut oraz do których
+będą odniesienia w dalszczej części artykułu.
+
+\subsection{Funkcja skrótu}
+
+Funkcja skrótu jest to funkcja która przyporządkowuje dowolnemu ciągowi znaków, inny ciąg znaków o stałej długości.
+Jedną z właściwości funkcji skrótu jest fakt iż po niewielkiej zmianie źródłowego ciągu znaków, wynik funkcji zmiena się
+całkowicie, co widać na poniższych przykładach:
+
+\begin{gather}
+\text{SHA256} ('Alice') = 3bc5106297 \ldots a0699a3043 \\
+\text{SHA256} ('Bob') = cd9fb1e148 \ldots bb4bb4e961 \\
+\text{SHA256} ('Bob.') = ec46deb8be \ldots d035fd84a2
+\end{gather}
+
+Kolejną właściwością funkcji skrótu jest niemożliwość znalezienia źródłowego ciągu znaków posiadając tylko jego skrót.
+Fakt ten sprawia że funkcję skrótu można wykorzystać do sprawdzania czy dwie wartości są takie same bez potrzeby przechowywania
+oryginalnej wartości. Jest to wykorzystywane podczas logowania się użytkowników w serwisach internetowych. Dzięki temu
+w bazie danych nie są przechowywane hasła w sposób jawny, zamiast tego przechowuje się jedynie ich skrót który jest
+porównywany ze skrótem wprowadzonego hasła podczas logowania.
 
 \subsubsection{Subsubsection Heading Here}
 Subsubsection text here.
