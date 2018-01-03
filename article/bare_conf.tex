@@ -155,6 +155,8 @@
 
 
 
+\usepackage{svg}
+
 
 % *** MATH PACKAGES ***
 %
@@ -394,9 +396,9 @@ Opis koncepcji i mechanizmów wykorzystanych przy tworzeniu kryptowalut.
 \section{Wstęp}
 
 Niniejszy artykuł przedstawia jakie problemy z pieniędzmi istnieją w dzisiejszym świecie i w jaki sposób pojawienie się
-kryptowalut może pomóc je rozwiązać. Następnie skupimy się na matematycznych koncepctach które zostały wykorzystane przy
-projektowaniu kryptowalut oraz samą architektórę kryptowalut. Opisane zostanie czym jest Blockchain, co oznacza kopanie
-bloków a także to w jaki sposób zapewniane jest bezpieczeństwo oraz czym jest fork w kontekcie Blockchainu. Pod koniec
+kryptowalut może pomóc je rozwiązać. Następnie skupimy się na matematycznych konceptach które zostały wykorzystane przy
+projektowaniu kryptowalut oraz samą architekturę kryptowalut. Opisane zostanie czym jest Blockchain, co oznacza kopanie
+bloków a także to w jaki sposób zapewniane jest bezpieczeństwo oraz czym jest fork w kontekście Blockchainu. Pod koniec
 opiszę co nowego wprowadza Ethereum w stosunku do Bitcoina.
 
 \subsection{Historia waluty}
@@ -417,7 +419,7 @@ pozwala na łatwiejsze określenie w jakim stosunku powinna zostać dokonana wym
 \subsection{Rola banków}
 
 Jeżeli posiadamy pieniądze, ale nie chcemy być odpowiedzialni za ich przechowywanie możemy skorzystać z usług Banku.
-Podstawową operacją jaką możemy wykonać w Banku jest możliwość zdeponowaniae oraz pobrania wcześniej zdeponowanych
+Podstawową operacją jaką możemy wykonać w Banku jest możliwość zdeponowania oraz pobrania wcześniej zdeponowanych
 środków. Kolejną z operacji jest wykonanie transferu środków z jednego konta na inne konto. Taka operacja umożliwia
 transfer środków innej osobie bez konieczności bezpośredniego przekazania pieniędzy w postaci monet czy banknotów. W
 takiej sytuacji Bank poświadcza że właściciel konta przekazał swoje środki innej osobie dzięki czemu ta może je dalej
@@ -435,12 +437,12 @@ przez klientów środków gdyż tylko on jest dokumentem poświadczającym stan 
 \section{Matematyka}
 
 W tym rozdziale omówię matematyczne koncepty które zostały wykorzystane przy projektowaniu kryptowalut oraz do których
-będą odniesienia w dalszczej części artykułu.
+będą odniesienia w dalszej części artykułu.
 
 \subsection{Funkcja skrótu}
 
 Funkcja skrótu jest to funkcja która przyporządkowuje dowolnemu ciągowi znaków, inny ciąg znaków o stałej długości.
-Jedną z właściwości funkcji skrótu jest fakt iż po niewielkiej zmianie źródłowego ciągu znaków, wynik funkcji zmiena się
+Jedną z właściwości funkcji skrótu jest fakt iż po niewielkiej zmianie źródłowego ciągu znaków, wynik funkcji zmienia się
 całkowicie, co widać na poniższych przykładach:
 
 \begin{gather}
@@ -455,9 +457,23 @@ oryginalnej wartości. Jest to wykorzystywane podczas logowania się użytkownik
 w bazie danych nie są przechowywane hasła w sposób jawny, zamiast tego przechowuje się jedynie ich skrót który jest
 porównywany ze skrótem wprowadzonego hasła podczas logowania.
 
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
+\subsection{Drzewo skrótów}
 
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{img/merkle-tree}
+  \caption{Drzewo skrótów}
+  \label{fig:merkle}
+\end{figure}
+
+Jest to bardziej rozbudowana wersja funkcji skrótu dzięki której możemy otrzymać skrót z listy obiektów. W kontekście
+kryptowalut wykorzystuje się drzewo skrótów do otrzymania skrótu grupy transakcji. Najpierw wyliczany jest skrót dla
+pojedynczej transakcji później skróty są parowane a następnie z pary obliczany jest skrót. Operacja jest powtarzana aż
+otrzymamy jeden skrót który reprezentuje skrót całej grupy. Wizualizacja obliczania przedstawiona jest na diagramie
+numer~\ref{fig:merkle} gdzie pojedyncza transakcja jest reprezentowana przez symbol \textit{Tx} a skrót całości
+oznaczony jest jako \textit{Root Hash}.
+
+\subsection{Podpis cyfrowy}
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -552,26 +568,6 @@ Subsubsection text here.
 % Note that, LaTeX2e, unlike IEEE journals/conferences, places
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
-
-
-
-
-\section{Conclusion}
-The conclusion goes here.
-
-
-
-
-% conference papers do not normally have an appendix
-
-
-% use section* for acknowledgment
-\section*{Acknowledgment}
-
-
-The authors would like to thank...
-
-
 
 
 
