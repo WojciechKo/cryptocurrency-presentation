@@ -466,7 +466,7 @@ porównywany ze skrótem wprowadzonego hasła podczas logowania.
 
 \begin{figure}[!t]
   \centering
-  \includegraphics[width=2.5in]{img/merkle-tree}
+  \includegraphics[width=3in]{img/merkle-tree}
   \caption{Drzewo skrótów}
   \label{fig:merkle}
 \end{figure}
@@ -479,6 +479,183 @@ numer~\ref{fig:merkle} gdzie pojedyncza transakcja jest reprezentowana przez sym
 oznaczony jest jako \textit{Root Hash}.
 
 \subsection{Podpis cyfrowy}
+
+Podpis cyfrowy jest techniką która pozwala na weryfikację autora wiadomości. Osoba chcąca skorzystać z podpisu cyfrowego
+musi posiadać klucz prywatny oraz klucz publiczny. Klucz prywatny służy do podpisywania wiadomości i powinien być znany
+tylko i wyłącznie autorowi wiadomości. Z kolei klucz publiczny służy do weryfikacji czy osoba podająca się za autora
+jest faktycznie autorem wiadomości i powinien zostać przekazany odbiorcy wiadomości w bezpieczny sposób. W wyniku
+podpisu wiadomości powstaje Sygnatura. Odbiorca wiadomości wykorzystując Sygnaturę, klucz publiczny nadawcy oraz samą
+wiadomość jest w stanie sprawdzić czy wiadomość została podpisana przez odpowiadający kluczowi publicznemu, klucz
+prywatny.
+
+\section{Kryptowaluty}
+
+Kryptowaluta jest to wirtualna waluta która nie ma swojej fizycznej reprezentacji. Jednak nie powinno się jej postrzegać
+jako byt który ma mniejszą wartość niż waluty tradycyjne. Często można usłyszeć opinię iż kryptowaluty nie mają żadnej
+wartości ponieważ nie są fizyczne i istnieją tylko wirtualne. Każda waluta sama w sobie nie ma żadnej wartości, nabiera
+ją dopiero wtedy, kiedy możemy w zamian za nią otrzymać coś innego. Brak posiadania fizycznej postaci powoduje powstanie
+pewnych problemów z jej przechowywaniem oraz wykorzystaniem jako środek płatności jednak jest to kwestia świadomości
+jakie istnieją zagrożenia i w jaki sposób można im zapobiec.
+
+\subsection{Portfel}
+
+Portfel stanowi para klucz prywatny oraz klucz publiczny. Klucz prywatny służy do podpisywania transakcji w których
+pieniądze są przelewane z powiązanego portfela na inny portfel wskazany poprzez przypisany do niego klucz publiczny.
+Klucz publiczny stanowi swego rodzaju adres na który można przesłać pieniądze. Natomiast klucz prywatny stanowi hasło do
+naszego konta bankowego bez którego nie jesteśmy w stanie wykonać przelewu.
+
+Najczęściej klucze reprezentowane są jako ciąg znaków zakodowany przy pomocy base58. Dzięki zastosowaniu base58 klucze
+są zapisywane w postaci ciągu liter i cyfr z pomięciem znaków które jest łatwo ze sobą pomylić, takich jak 0 (cyfra
+zero) oraz O (litera O). Istnieje jednak możliwość zapisana kluczy w dowolny sposób który umożliwia odtworzenie
+oryginalnego ciągu znaków. Do tego celu może zostać wykorzystany np.\ kod QR, obraz cyfrowy w którym na najmniej
+znaczących bitach zapisana jest informacja o kluczach (steganografia), kilkanaście losowo wygenerowanych podczas
+tworzenia portfela słów które można zapamiętać, zapisać lub dalej zakodować. Możliwości na przechowywanie klucza
+prywatnego są ograniczone ludzką pomysłowością na zapis informacji w sposób zrozumiały tylko dla autora.
+
+\subsection{Transakcja}
+
+W celu wykonania transakcji użytkownik musi posiadać klucz prywatny. Transakcja zawiera w sobie informację na jaki
+portfel powinna zostać przeniesiona określona ilość waluty. Po utworzeniu Transakcji musi ona zostać podpisana przy
+pomocy klucza prywatnego powiązanego z portfelem z którego zostaje wykonany transfer. Następnie transakcja wraz z
+podpisem zostaje wysłana do sieci Blockchain która zajmuje się weryfikacją transakcji oraz zapewnia prawidłowe działanie
+całego systemu.
+
+Istotny jest fakt iż utworzenie transakcji z podpisem oraz wysłanie jej do sieci nie muszą nastąpić w tym samym
+momencie. W celu uzyskania najwyższego bezpieczeństwa zalecane jest wykonanie podpisu transakcji na komputerze bez
+podłączenia do internetu. Następnie skopiowanie transakcji wraz z podpisem na komputer połączony z internetem i wysłanie
+jej do sieci. W ten sposób zyskujemy większe bezpieczeństwo poprzez fakt iż klucz prywatny nie jest przechowywany ani
+wprowadzany na komputerze z połączeniem internetowym który jest bardziej narażony na złośliwe oprogramowanie niż
+odizolowana jednostka.
+
+\section{Blockchain}
+
+Blockchain jest sercem kryptowalut i stanowi rewolucję w dziedzinie rozproszonych baz danych. Blockchain składa się z
+bloków który z kolei zawiera listę transakcji. Wielkość bloku jest ustalona i w przypadku Bitcoin wynosi nie więcej niż
+1MB, co daje około 2000 transakcji na blok.\cite{transakcje} Bitcoin jest zaprojektowany aby nowy blok z transakcjami
+pojawiał się co 10 minut co daje ostatecznie 3-4 transakcje na sekundę. Dla porównania PayPal realizuje średnio 193
+trasakcje na sekundę a Visa 1'667.\cite{porownanieTransakcji}
+
+\subsection{Blok}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=3in]{img/blockchain}
+  \caption{Schemat Blockchain}
+  \label{fig:blockchain}
+\end{figure}
+
+Na Rycinie~\ref{fig:blockchain} przedstawiony został schemat Blockchainu oraz pojedynczego bloku. Każdy z bloków składa
+się z wartości wyliczonej przy użyciu drzewa skrótów z listy transakcji wchodzących w skład danego bloku, wyniku funkcji
+skrótu obliczonej na podstawie poprzedniego bloku, oraz wartości \textit{Nonce} która zostanie opisana w późniejszej
+części artykułu. Wszystkie z wymienionych elementów są użyte do obliczenia wartości hash danego bloku.
+
+Podział na bloki i zawieranie wartości funkcji skrótu z poprzedniego bloku przypomina strukturę która została użyta do
+budowy systemu Git\cite{git}. Całość tworzy liniową strukturę w której dowolna zmiana bloku z przeszłości (taka jak
+dodanie lub usunięcie transakcji) powoduje zmianę hasha tego bloku co skutkuje przerwaniem łańcucha Blockchain ponieważ
+kolejny blok zawiera hash zmienionego bloku sprzed modyfikacji. Aby zachować integralność z blokami występującymi dalej
+w Blockchainie należy dla każdego z tych bloków ustawić nową wartość hash poprzedniego bloku.
+
+\subsection{Kopanie bloków - Proof of work}
+
+Każdy z bloków w Blockchainie musi spełnić warunek aby jego hash zaczynał się op określonej liczby zer. Aby to osiągnąć
+do bloku zostaje dodana wartość \textit{Nonce}. Poprzez modyfikowane jej wartością mamy możliwość wpływania na wartość
+hasha całego bloku. Jako że nie ma możliwości aby uzyskać źródło funkcji skrótu na podstawie jej wyniku jedyną
+możliwością na spełnienie wymagania aby hash zaczynał się od określonej liczby zer jest sprawdzanie kolejnych wartości
+\textit{Nonce} aż trafimy na taką która spełnia to wymaganie.
+
+Znalezienie tej wartości jest bardzo czasochłonne ponieważ jedyny sposób na jej znalezienie to podstawianie kolejnych
+wartości do zmiennej \textit{Nonce} i sprawdzanie czy wartość hasha spełnia wymaganie sieci. Tym zadaniem zajmują się
+kopacze bloków którzy w zamian za udostępnienie swojej mocy obliczeniowej dostają wynagrodzenie w danej kryptowalucie.
+To dzięki temu w sieci pojawia się co raz więcej Bitcoinów. Nagroda ta jest zmniejszana o połowę co około 4 lat aż do
+osiągnięcia limitu 21 milionów Bitcoinów w sieci, wtedy kopacze przestaną dostawać wynagrodzenie za samo znajdowanie
+odpowiedniej liczby \textit{Nonce}. Po limitu kopacze będą dostawać wynagrodzenie w postaci prowizji za transakcje.
+Prowizje ustala autor transakcji, im większa prowizja, tym większa szansa na to że jego transakcja znajdzie się w
+kolejnym bloku. W przypadku ustalenia zbyt małej prowizji istnieje ryzyko że transakcja nigdy nie zostanie
+zaakceptowania ponieważ kopacze wybiorą transakcje z większą prowizją do następnego bloku. W czasie pisania artykułu w
+sieci znajdowało się 150'000 transakcji oczekujących na akceptację\cite{niezatwierdzoneTransakcje}.
+
+Wraz ze wzrostem sieci liczba wymaganych zer może ulec zmianie. W sieci Bitcoin ustalenie liczby wymaganych zer
+następuje raz na 2 tygodnie i dobierane jest tak aby wydobycie nowego bloku zajmowało średnio 10 minut.
+
+\subsection{Atak 51\%}
+
+W przypadku gdy ktoś chciałby skompromitować sieć Bitcoin poprzez zmianę jednej z historycznych transakcji, musi wykopać
+jeszcze raz dany blok oraz wszystkie bloki które po nim występują. Dla przypomnienia, trudność wydobycia bloku jest
+dostosowana tak aby całej sieci średnio zajmowało to 10 minut. Prawdopodobieństwo wydobycia dwóch lub więcej bloków niż
+reszta sieci jest bliska zeru. Warunkiem wymaganym do skutecznego ataku jest posiadanie minimum 51\% mocy obliczeniowej
+sieci. W przeciwnym wypadku reszta sieci będzie w stanie szybciej wydobywać nowe bloki co skutkuje powstaniem dłuższego
+łańcucha.
+
+W przypadku istnienia wielu łańcuchów brany jest pod uwagę ten który jest dłuższy. Wynika to z teorii gier która zakłada
+że gracz zyska więcej na przestrzeganiu zasad (akceptacja dłuższego łańcucha i próba wydobycia nowego bloku na jego
+szczycie) niż na łamaniu zasad (próba kompromitacji łańcucha poprzez nadpisanie istniejącej historii lub wydobywanie
+bloku na krótszym łańcuchu).
+
+Przez tą niepewność odnośnie końcowych bloków łańcucha które mogą ulec zmianie poprzez zastąpienie go innymi blokami
+istnieje określenie pewność bloku. Im blok jest dalej od końca łańcucha tym bardziej pewny się staje i maleje szansa na
+to że zostanie podmieniony. Przyjmuje się że 6.\ blok od końca jest wystarczająco pewny i jest niewielka szansa na to że
+w przyszłości ulegnie podmianie.
+
+\section{Forki}
+
+Istnieje możliwość celowego rozdzielenia łańcucha Blockchain. Najczęstszym z powodów jest zmiana architektury
+kryptowaluty dzięki której poprawi się jej stabilność. Zazwyczaj po forku właściciele portfeli z Bitcoinami stają się
+właścicielami takiej samej ilości nowej waluty ile posiadali Bitcoinów przed forkiem.
+
+\subsection{Bitcoin Cash}
+
+Jest to pierwszym \textit{hard forkiem} Bitcoina. Oznacza to iż jego wersja nie jest kompatybilna wstecz z Bitcoinem.
+Główną zmianą było zwiększenie wielkości bloku z 1MB do 8MB co według założeń twórców spowoduje iż Bitcoin Cash będzie
+bardziej użyteczny przy transferach małych kwot. Sytuacja miała miejsce w momencie gdy za transakcję Bitcoina trzeba
+było zapłacić kilkadziesiąt dolarów.
+
+\subsection{Bitcoin Gold}
+
+Kolejny fork Bitcoina który powstał 2.5 miesiąca po forku Bitcoin Cash. Przez wielu uznany za oszustwo i nie powinien
+być brany na poważnie. Wprowadzone zmiany obejmują zmianę algorytmu wykorzystanego do wyliczania skrótu, zmiana z SHA256
+na Equihash. Dodatkowo dostosowanie trudności wydobycia bloku następuje po wykopaniu każdego bloku, w oryginalnym
+Bitcoinie zmiana następuje co 2016 blok.
+
+\subsection{SegWit2x}
+
+Fork który nie doszedł do skutku jednak miał wpływ na wahania ceny Bitcoina. Zmiana obejmuje głównie podwojenie bloku w
+stosunku do Bitcoina z 1MB na 2MB. Został odwołany ponieważ społeczność uznała iż zmiana niewiele wnosi biorąc pod uwagę
+iż już istnieje Bitcoin Cash ze zwiększoną wielkością bloku i kolejny fork nie wniesie żadnej korzyści.
+
+\section{Ethereum}
+
+W przeciwieństwie do forków, Ethereum jest całkowicie nową walutą która wprowadza możliwość wprowadzenia własnego kodu
+źródłowego do Blockchainu. Dzięki temu Ethereum jest w stanie zaoferować o wiele więcej niż Bitcoin.
+
+\subsection{Kontrakty}
+
+Ethereum umożliwia utworzenie kontraktów. Dzięki temu mechanizmowi możliwe jest utworzenie własnej logiki na
+Blockchainie dzięki co umożliwia stworzenie cyfrowych umów odpornych na manipulacje z zewnątrz.  Kontrakt który został
+umieszczony na Blockchainie nie może zostać już zmieniony. Może zostać utworzony nowy, uaktualniony kontrakt, jednak
+istniejącego nie można zmienić.
+
+Najprostszym przykładem kontraktu jest dystrybucja Tokenów. Każdy może utworzyć swoje własne Tokeny na Blockchainie
+Ethereum a następnie je sprzedawać za Ethereum. Przykładowo politycy mogą wydawać swoje własne Tokeny które mogą zostać
+zakupione przez wyborców Dzięki temu politycy zyskują fundusze na działalność a kupujący wierzy w to że polityk jest
+uczciwy i działa dla dobra społeczeństwa co powinno spowodować wzrost wartości jego Tokenów. Mechanizm został nazwany
+ICO (Initial Coin Offering) i aktualnie staje się nową formą crowdfoundingu.
+
+Innym kontraktem może być loteria. Uczestnicy wpłacają pieniądze na adres Kontraktu. Następnie dokonuje się losowanie w
+wyniku którego wybrany zostaje jednej z uczestników który wygrywa całą pulę.
+
+\subsection*{Podsumowanie}
+
+Kryptowaluty zdają się być rewolucją w bankowości i podejściu do waluty na miarę rewolucji dokonanej przez internet w
+dziedzinie komunikacji. Główną z zalet Kryptowalut jest oderwanie ich od fizycznej postaci, możliwość transferu do
+dowolnego miejsca na Ziemi bez pośredników, przejrzystość oraz brak możliwości dodrukowania. Z góry wiadomo ile
+maksymalnie może ich powstać oraz jakie są zasady dystrybucji. Według wizji niektórych Banki, ubezpieczalnie, zakłady
+bookmacherskie i wszelkie działalności w których występuje transfer pieniędzy będzie można zastąpić odpowiednią
+Kryptowalutą, Konraktem czy kolejną ideą zbudowaną na na Blockchainie.
+
+Pewne jest to że sama technologia Blockchain zrewolucjonizuje wiele sektorów ponieważ ma wiele do zaoferowania jako
+szeroko pojęta rozproszona baza danych niekoniecznie związana z pieniędzmi. Już można znaleźć informacje o planowanych
+migracjach systemów bankowych na Blockchain, wykorzystanie go do przechowywania danych medycznych, czy nawet
+przeprowadzania wyborów.
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
