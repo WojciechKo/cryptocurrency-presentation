@@ -34,7 +34,7 @@
 
         <section data-markdown>
           <textarea data-template>
-            # Kryptowaluty
+            # Cryptocurrency
             # &amp;
             # Blockchain
           </textarea>
@@ -43,27 +43,24 @@
 
         <section data-markdown>
           <textarea data-template>
-            # Kim jestem?
+            # Who am I?
 
-            **Wojciech Korzeniowski**
+            ## **Wojciech Korzeniowski**
 
             Ruby developer @ EL Passion
-
-            Praca magisterska: Wykorzystanie głębokiego uczenia w diagnostyce systemów analogowych
           </textarea>
         </section>
 
 
         <section data-markdown>
           <textarea data-template>
-            # Plan prezentacji
+            # Agenda
 
-            1. Wartość waluty
-            2. Kryptografia
-            3. Kryptowaluta
+            1. Value of currency
+            2. Cryptography
+            3. Cryptocurrency
             4. Blockchain
-            5. Giełdy
-            7. Etherium
+            7. Smart contracts
           </textarea>
         </section>
 
@@ -71,19 +68,16 @@
         <section>
           <section data-markdown>
             <textarea data-template>
-              # Wartość waluty
-
-Note:
-Przyprawy, kamienie, metale zmienione na znormalizowaną walutę.
+              # Value of currency
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Transfer waluty
+              ## Currency transfer
 
-              * Przekazując walutę w postaci fizycznej
-              * Wykonując transfer przy pomocy zaufanej trzeciej strony
+              * Pass currency token in person
+              * Currency transfer using trusted third party
             </textarea>
           </section>
 
@@ -91,25 +85,23 @@ Przyprawy, kamienie, metale zmienione na znormalizowaną walutę.
             <textarea data-template>
               ## Bank
 
-              **[Bank](https://pl.wikipedia.org/wiki/Bank)** – osoba prawna wykonująca działalność gospodarczą polegającą na **przyjmowaniu depozytów**, udzielaniu kredytów ...
-
-              Ze względu na rodzaj świadczonych usług, banki zaliczane są do tak zwanych instytucji **zaufania publicznego**.
+              **[Bank](https://en.wikipedia.org/wiki/Bank)** – A bank is a financial institution that **accepts deposits** from the public and creates credit.
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Rejestr
+              ## Ledger
 
-              lp.| Kto     | ile
-              ---|---------|---
-              1. | Alice   | 1'500 USD
+              lp.| Name    | Balance
+              ---|---------|----------
+              1. | Alice   |  1'500 USD
               2. | Bob     | 12'100 USD
-              3. | Charlie | 8'200 USD
+              3. | Charlie |  8'200 USD
 Note:
-* Centralizacja, rejestr przechowywany w bankach.
-* Możliwość oszustwa.
-* Opłaty
+* Centralization
+* Exposed to fraud
+* Fees
             </textarea>
           </section>
         </section>
@@ -118,13 +110,13 @@ Note:
         <section>
           <section data-markdown>
             <textarea data-template>
-              # Kryptografia
+              # Cryptocurrency
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Funkcja skrótu
+              ## Hash function
 
               ```
               SHA256('Alice') = 3bc51062973c458d5a6f2d8d64a023246354ad7e064b1e4e009ec8a0699a3043
@@ -138,7 +130,7 @@ Note:
 
           <section data-markdown>
             <textarea data-template>
-            ## Merkle tree - drzewo skrótów
+            ## Merkle tree
 
             ![Merkle tree](https://upload.wikimedia.org/wikipedia/commons/9/95/Hash_Tree.svg)
             </textarea>
@@ -146,15 +138,15 @@ Note:
 
           <section data-markdown>
             <textarea data-template>
-              ## Podpis cyfrowy
+              ## Digital Signature
 
-              Podpisanie wiadomości:
+              Signing
 
-                  Sign(Message, klucz_prywatny): Signature
+                  Sign(Message, private_key): Signature
 
-              Weryfikacja wiadomości:
+              Verifying
 
-                  Verify(Message, Signature, klucz_publiczny): Boolean
+                  Verify(Message, Signature, public_key): Boolean
             </textarea>
           </section>
         </section>
@@ -163,7 +155,7 @@ Note:
         <section>
           <section data-markdown>
             <textarea data-template>
-              # Kryptowaluta
+              # Cryptocurrency
             </textarea>
           </section>
 
@@ -171,45 +163,43 @@ Note:
             <textarea data-template>
               ## Bitcoin
 
-              * Stworzony przez Satoshi Nakamoto
-              * Zbudowany na Blockchainie
-              * Maksymalna liczba Bitcoinów wynosi 21'000'000
-              * 1 BTC = 100'000'000 Satoshi
+              * Made by Satoshi Nakamoto
+              * Build on top of Blockchain
+              * Maximum amount of Bitcoin is going to be equal 21'000'000
+              * 1 Bitcoin = 100'000'000 Satoshi
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Portfel
+              ## Wallet
 
-              * Klucz prywatny - do odbierania
-              * Klucz publiczny - do wysyłania
+              * Public key - Addres of our wallet
+              * Private key - Password to our wallet
 
-              Posiadając **klucz prywatny** możemy przesłać kryptowalutę z portfela który jest z nim powiązany.
-
-              Udostępniając **klucz publiczny** inni mogą przesłać kryptowalutę na nasz portfel.
+              If we are in possession of private key assigned to a wallet, we can send Bitcoin from that wallet to other's wallet represented as public key.
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Transakcja
+              ## Transaction
 
-              Podpisanie transakcji:
+              Signing of transaction:
 
-                  Sign(Tx, klucz_prywatny): Signature
+                  Sign(Tx, private_key): Signature
 
-              Weryfikacja transakcji:
+              Verification of transaction:
 
-                  Verify(Tx, Signature, klucz_publiczny): Boolean
+                  Verify(Tx, Signature, public_key): Boolean
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Rejestr
+              ## Ledger
 
-              lp.| Od    | Do      | ile
+              lp.| From  | To      | Amount
               ---|-------|---------|-------
               1. | Alice | Bob     | 10 USD
               2. | Bob   | Charlie | 50 USD
@@ -219,11 +209,11 @@ Note:
 
           <section data-markdown>
             <textarea data-template>
-              ## Transakcja
+              ## Transaction
 
-              ![Transakcje](https://i.stack.imgur.com/WvyLE.png)
+              ![Transactions](https://i.stack.imgur.com/WvyLE.png)
               Note:
-              Co z konsensusem pomiędzy rejestrami?
+              How to maintain consensus between different Ledgers.
             </textarea>
           </section>
         </section>
@@ -247,9 +237,11 @@ Note:
             <textarea data-template>
               ## Blok
 
-              Najmniejsza zmiana jednego z następujących elementów bloku powoduje całkowitą zmianę hasha bloku
-                * Lista transakcji zawierających się w bloku
-                * Hash poprzedniego bloku
+              Each block in block chain needs to start with 32* zeros.
+
+              Change of any of those elements cause change of the hash of block.
+                * Transactions that belongs to given blok
+                * Hash of previous block
                 * Nonce
             </textarea>
           </section>
@@ -258,9 +250,11 @@ Note:
             <textarea data-template>
               ## Mining
 
-              Należy znaleźć taką wartość Nonce aby hash bloku zaczynał się od 32* zer.
+              * Miner needs to find a value of Nounce that satisfis block requirements.
 
-              Za znalezienie odpowiedniej wartości, kopacz dostaje wynagrodzenie w zamian zabezpieczanie sieci.
+              * Miner gets reward for his work as a fee from each transaction. Also for each mined block he gets an extra reward. Thanks to that, in the Bitcoin network there is more and more Bitcoins.
+
+              * When the number of Bitcoins hit the limit of 21M, then miners will receive only a fee.
 Note:
 Pool mining
             </textarea>
@@ -268,22 +262,39 @@ Pool mining
 
           <section data-markdown>
             <textarea data-template>
-              ## Dowód pracy - Proof of work
-              * Drogie i nieekologiczne - Zużywa duże ilości prądu
-              * Wynagrodzenie dla kopaczy z czasem maleje. Bitcoin: Maleje o połowę co 4 lata
-
-Note:
-Kto ma większość mocy obliczeniowej może pisać historię
+              Proof of work
+              * Expensive
+              * Non-eco-friendly
+              * Reward for Miners cuts in half each 4 years.
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Atak 51%
-              Jeżeli Atakujący jest w posiadaniu ponad 50% mocy całej sieci wtedy Atakujący przejmuje kontrolę nad siecią.
-              Czyli ma możliwość
-              * Podwójnego wydawania bitcoinów (double spending)
-              * Zatrzymania transakcji w sieci.
+              ## 51% Attack
+
+              If a single entity is in posses of over 50% of Bitcoin network computer performance he can manipulate the history of transactions.
+              * Double spending
+              * Prevent given transaction for beeing acceped
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Scalability
+
+              Transactions per second
+              * Bitcoin - 3 Tx/s
+              * Ethereum - 20 Tx/s (With [Raiden](https://raiden.network/) will increase to 1'000'000 Tx/s)
+              * PayPal 193 Tx/s
+              * Visa - 1'667 Tx/s
+
+              [Source](https://mybroadband.co.za/news/banking/206742-bitcoin-and-ethereum-vs-visa-and-paypal-transactions-per-second.html)
+
+              Note:
+              Block is generated in each:
+              * Bitcoin - 10 min
+              * Ethereum - 15-30 sec
             </textarea>
           </section>
         </section>
@@ -299,24 +310,24 @@ Kto ma większość mocy obliczeniowej może pisać historię
           <section data-markdown>
             <textarea data-template>
               ## SegWit - Bitcoin Cash
-              Działa od 1 sierpnia 2017
+              Operating since 1 sierpnia 2017
 
-              **Powody:**
-              * Część społeczności chciała zwiększenia wielkości bloku z z obawy o problemy ze skalowaniem
-              * Wniosek iż Bitcoin jest bardziej nastawiony na inwestycje niż na używanie jako waluty do płacenia
+              **Reasons:**
+              * Part of community wanted to increase size of block to improve scalability.
+              * They came to conclusion that Bitcoin works fine for invetment but can't be used as payment system.
 
-              **Zmiany:**
-              * Zwiększenie wielkości bloku z 1MB do 8MB
+              **Changes:**
+              * Increse size of block from 1MB to 8MB
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
               ## SegWit2x
-              Nie doszedł do skutku
+              Didn't happen because we already have Bitcoin Cash that increases block size so there was no point to do that.
 
-              **Zmiany:**
-              * Zwiększenie wielkości bloku z 1MB do 2MB
+              **Changes:**
+              * Increse size of block from 1MB to 2MB
               <br>
             </textarea>
           </section>
@@ -325,69 +336,24 @@ Kto ma większość mocy obliczeniowej może pisać historię
         <section>
           <section data-markdown>
             <textarea data-template>
-              # Etherium
+              # Smart contracts
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Skalowalność
+            ## Smart contracts
+              * Can send ETH to other address
+              * Read/Write to smart contract memory
 
-              Transakcje na sekundę
-              * Bitcoin - 3 Tx/s
-              * Ethereum - 20 Tx/s (Z [Raiden](https://raiden.network/) do 1'000'000 Tx/s)
-              * PayPal 193 Tx/s
-              * Visa - 1'667 Tx/s
-
-              [Źródło](https://mybroadband.co.za/news/banking/206742-bitcoin-and-ethereum-vs-visa-and-paypal-transactions-per-second.html)
-
-              Note:
-              Co ile generowany jest blok
-              * Bitcoin - 10 min
-              * Ethereum - 15-30 sec
+            *Note:
+Solidity - language that allows to write smart contracts
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-            ## Etherium
-
-            * Wbudowana obsługa języka Solidity
-            * Dwa typy adresów do przesłania waluty
-                * Portfel użytkownika
-                * Kontrakt
-            * Dowód pracy kontra Dowód stawki
-            </textarea>
-          </section>
-
-          <section data-markdown>
-            <textarea data-template>
-              ## Dowód stawki - Proof of stake
-
-              * Decytuje ten co ma najwięcej, najmniej mu zależy na oszukiwaniu
-              * Nie ma górników, są walidatorzy (Validators)
-              * Nic do stracenia - nothing at stake problem
-              * Casper
-
-              [https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ)
-            </textarea>
-          </section>
-
-          <section data-markdown>
-            <textarea data-template>
-              ## Smart contracts - Mądre kontrakty
-
-              * Wysyłanie ETH do na inny adres
-              * Czytanie i zapis w pamięci kontraktu
-
-Note:
-Nowa wersja to nowy kontrakt
-            </textarea>
-          </section>
-
-          <section data-markdown>
-            <textarea data-template>
-              ## Tokeny
+              ## Tokens
               #### Coinye
               ![Coinye](http://coye.cc/images/logo.png)
             </textarea>
@@ -517,15 +483,15 @@ Nowa wersja to nowy kontrakt
         <section>
           <section data-markdown style="text-align: left;">
             <textarea data-template>
-              Prezentacja:
+              Presentation:
 
               * [github.com/WojciechKo/cryptocurrency-presentation](https://github.com/WojciechKo/cryptocurrency-presentation)
 
-              Źródła:
+              Sources:
 
               * [Ivan on Tech](https://www.youtube.com/user/LiljeqvistIvan)
 
-              Giełdy:
+              Stocks:
 
               * [BitBay](https://bitbay.net)
               * [Bittrex](https://bittrex.com/)
