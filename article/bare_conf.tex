@@ -50,7 +50,8 @@
 
 
 
-\documentclass[conference]{IEEEtran}
+
+\documentclass[journal,12pt,onecolumn,draftclsnofoot,]{IEEEtran}
 % Some Computer Society conferences also require the compsoc mode option,
 % but others use the standard conference format.
 %
@@ -401,15 +402,15 @@ Opis koncepcji i mechanizmów wykorzystanych przy tworzeniu kryptowalut.
 \section{Wstęp}
 
 Niniejszy artykuł przedstawia jakie problemy z pieniędzmi istnieją w dzisiejszym świecie i w jaki sposób pojawienie się
-kryptowalut może pomóc je rozwiązać. Następnie skupimy się na matematycznych konceptach które zostały wykorzystane przy
-projektowaniu kryptowalut oraz samą architekturę kryptowalut. Opisane zostanie czym jest Blockchain, co oznacza kopanie
-bloków a także to w jaki sposób zapewniane jest bezpieczeństwo oraz czym jest fork w kontekście Blockchainu. Pod koniec
+kryptowalut może pomóc je rozwiązać. Następnie opiszę matematyczne koncepty które zostały wykorzystane przy
+projektowaniu kryptowalut oraz samą architekturę kryptowalut. Dalej wyjaśnię czym jest Blockchain, co oznacza kopanie
+bloków oraz jaki sposób zapewniane jest bezpieczeństwo. Następnie wyjaśnię czym jest fork w kontekście Blockchainu oraz
 opiszę co nowego wprowadza Ethereum w stosunku do Bitcoina.
 
 \subsection{Historia waluty}
 
 Od zarania dziejów na świecie istniał handel. Zanim jednak postały waluty, ludzie wymieniali się między sobą rozmaitymi
-dobrami w sposób bezpośredni. Jeden z problemów który występuje podczas takiej wymiany jest problem z wydaniem reszty.
+dobrami w sposób bezpośredni.  Jeden z problemów który występuje podczas takiej wymiany jest problem z wydaniem reszty.
 Przykładowo, jeżeli ktoś kto hodował świnie i potrzebował kostkę masła, musiał wymienić całą świnię na dużą ilość masła.
 Ewentualnie mógł podzielić świnie i zostać z resztą świni co mogło powodować problem z jej przechowaniem. Rozwiązaniem
 tego problemu okazały się waluty. Hodowca mógł sprzedać swoją świnie w zamian za określoną ilość danej waluty a
@@ -417,32 +418,28 @@ następnie część przeznaczyć na zakup masła. Inny problem który istnieje w
 wartości jednych dóbr w stosunku do innych. Zdecydowanie łatwiej jest sprowadzić wartość dóbr do wspólnej waluty co
 pozwala na łatwiejsze określenie w jakim stosunku powinna zostać dokonana wymiana jednego dobra z inne.
 
-
-% \hfill mds
-% \hfill August 26, 2015
-
 \subsection{Rola banków}
 
 Jeżeli posiadamy pieniądze, ale nie chcemy być odpowiedzialni za ich przechowywanie możemy skorzystać z usług Banku.
 Podstawową operacją jaką możemy wykonać w Banku jest możliwość zdeponowania oraz pobrania wcześniej zdeponowanych
-środków. Kolejną z operacji jest wykonanie transferu środków z jednego konta na inne konto. Taka operacja umożliwia
-transfer środków innej osobie bez konieczności bezpośredniego przekazania pieniędzy w postaci monet czy banknotów. W
-takiej sytuacji Bank poświadcza że właściciel konta przekazał swoje środki innej osobie dzięki czemu ta może je dalej
-przekazać. Taka rola sprawa że Banki są jedną z instytucji zaufania publicznego. Znaczy to między innymi to że
-społeczeństwo wierzy iż w każdej chwili może odebrać powierzone Bankowi pieniądze co nie jak pokazuje historia nie
-zawsze jest prawdą. Przykładem posłuży sytuacja Grecji z 2015 roku gdzie w wyniku kryzysu finansowego greckie Banki
-zostały zamknięte a wypłaty z bankomatów ograniczone do 60 euro na dzień.\cite{kryzysGrecji}
+środków. Kolejną z operacji jest wykonanie transferu środków z jednego konta na inne. Taka operacja umożliwia transfer
+środków innej osobie bez konieczności bezpośredniego przekazania pieniędzy w postaci monet czy banknotów. W takiej
+sytuacji Bank poświadcza że właściciel konta przekazał swoje środki innej osobie dzięki czemu ta może z nich skorzystać.
+Taka rola sprawa że Banki są jedną z instytucji zaufania publicznego. Oznacza to to między innymi fakt że społeczeństwo
+wierzy, iż w każdej chwili może odebrać powierzone Bankowi pieniądze a to jak pokazuje historia nie zawsze jest prawdą.
+Za przykład posłuży sytuacja Grecji z 2015 roku gdzie w wyniku kryzysu finansowego greckie Banki zostały zamknięte a
+wypłaty z bankomatów ograniczone do 60 euro na dzień.\cite{kryzysGrecji}
 
 Fakt iż Bank jest odpowiedzialny za weryfikację czy dana osoba posiada odpowiednią ilość środków do wykonania transferu
-wymusza prowadzenie rejestru. W rejestrze znajdują się informacje przypisane do danego konta, historia wszystkich
-transferów oraz wynikająca z nich liczba zgromadzonych na koncie środków. Na banku spoczywa odpowiedzialność aby
-zawartość rejestru nie wpadła w niepowołane ręce oraz to aby rejestr nie przepał co spowodowałoby utratę zgromadzonych
-przez klientów środków gdyż tylko on jest dokumentem poświadczającym stan konta.
+wymusza prowadzenie rejestru. W rejestrze znajduje się historia wszystkim transakcji oraz stan konta przypisany dla
+każdego użytkownika. Na banku spoczywa odpowiedzialność aby zawartość rejestru nie wpadła w niepowołane ręce oraz aby
+rejestr nie przepał co spowodowałoby utratę zgromadzonych przez klientów środków gdyż tylko on jest dokumentem
+poświadczającym stan konta.
 
 \section{Matematyka}
 
-W tym rozdziale omówię matematyczne koncepty które zostały wykorzystane przy projektowaniu kryptowalut oraz do których
-będą odniesienia w dalszej części artykułu.
+W tym rozdziale omówię matematyczne koncepty które zostały wykorzystane przy projektowaniu kryptowalut, będę się do nich
+odnosił w  dalszej części artykułu.
 
 \subsection{Funkcja skrótu}
 
@@ -473,35 +470,35 @@ porównywany ze skrótem wprowadzonego hasła podczas logowania.
 
 Jest to bardziej rozbudowana wersja funkcji skrótu dzięki której możemy otrzymać skrót z listy obiektów. W kontekście
 kryptowalut wykorzystuje się drzewo skrótów do otrzymania skrótu grupy transakcji. Najpierw wyliczany jest skrót dla
-pojedynczej transakcji później skróty są parowane a następnie z pary obliczany jest skrót. Operacja jest powtarzana aż
-otrzymamy jeden skrót który reprezentuje skrót całej grupy. Wizualizacja obliczania przedstawiona jest na diagramie
-numer~\ref{fig:merkle} gdzie pojedyncza transakcja jest reprezentowana przez symbol \textit{Tx} a skrót całości
-oznaczony jest jako \textit{Root Hash}.
+pojedynczej transakcji później skróty są parowane a następnie z pary obliczany jest kolejny skrót. Operacja jest
+powtarzana aż otrzymamy jeden skrót który reprezentuje skrót całej listy. Wizualizacja obliczania przedstawiona jest na
+diagramie numer~\ref{fig:merkle} gdzie pojedyncza transakcja jest reprezentowana przez symbol \textit{Tx} a skrót
+całości oznaczony jest jako \textit{Root Hash}.
 
 \subsection{Podpis cyfrowy}
 
 Podpis cyfrowy jest techniką która pozwala na weryfikację autora wiadomości. Osoba chcąca skorzystać z podpisu cyfrowego
 musi posiadać klucz prywatny oraz klucz publiczny. Klucz prywatny służy do podpisywania wiadomości i powinien być znany
-tylko i wyłącznie autorowi wiadomości. Z kolei klucz publiczny służy do weryfikacji czy osoba podająca się za autora
-jest faktycznie autorem wiadomości i powinien zostać przekazany odbiorcy wiadomości w bezpieczny sposób. W wyniku
-podpisu wiadomości powstaje Sygnatura. Odbiorca wiadomości wykorzystując Sygnaturę, klucz publiczny nadawcy oraz samą
-wiadomość jest w stanie sprawdzić czy wiadomość została podpisana przez odpowiadający kluczowi publicznemu, klucz
-prywatny.
+tylko i wyłącznie autorowi wiadomości. Z kolei klucz publiczny służy do weryfikacji czy wiadomość została podpisana
+przez odpowiadający mu klucz prywatny. W wyniku podpisu wiadomości powstaje Sygnatura która zostaje przesłana wraz z
+wiadomością. Odbiorca wiadomości wykorzystując Sygnaturę, klucz publiczny nadawcy oraz samą wiadomość jest w stanie
+sprawdzić czy wiadomość została podpisana przy użyciu właściwego klucza prywatnego.
 
 \section{Kryptowaluty}
 
 Kryptowaluta jest to wirtualna waluta która nie ma swojej fizycznej reprezentacji. Jednak nie powinno się jej postrzegać
 jako byt który ma mniejszą wartość niż waluty tradycyjne. Często można usłyszeć opinię iż kryptowaluty nie mają żadnej
 wartości ponieważ nie są fizyczne i istnieją tylko wirtualne. Każda waluta sama w sobie nie ma żadnej wartości, nabiera
-ją dopiero wtedy, kiedy możemy w zamian za nią otrzymać coś innego. Brak posiadania fizycznej postaci powoduje powstanie
-pewnych problemów z jej przechowywaniem oraz wykorzystaniem jako środek płatności jednak jest to kwestia świadomości
-jakie istnieją zagrożenia i w jaki sposób można im zapobiec.
+ją dopiero wtedy, kiedy możemy w zamian za nią otrzymać coś innego. Brak posiadania fizycznej postaci rozwiązuje problem
+przechowywania dużych ilości pieniędzy bez konieczności korzystania z Banków. Z drugiej strony powoduje powstanie nowych
+problemów z jej przechowywaniem oraz wykorzystaniem jako środek płatności jednak jest to kwestia świadomości jakie
+istnieją zagrożenia i w jaki sposób można im zapobiec.
 
 \subsection{Portfel}
 
 Portfel stanowi para klucz prywatny oraz klucz publiczny. Klucz prywatny służy do podpisywania transakcji w których
 pieniądze są przelewane z powiązanego portfela na inny portfel wskazany poprzez przypisany do niego klucz publiczny.
-Klucz publiczny stanowi swego rodzaju adres na który można przesłać pieniądze. Natomiast klucz prywatny stanowi hasło do
+Klucz publiczny stanowi swego rodzaju adres na który można przesłać pieniądze. Natomiast klucz prywatny jest hasłem do
 naszego konta bankowego bez którego nie jesteśmy w stanie wykonać przelewu.
 
 Najczęściej klucze reprezentowane są jako ciąg znaków zakodowany przy pomocy base58. Dzięki zastosowaniu base58 klucze
@@ -530,10 +527,10 @@ odizolowana jednostka.
 \section{Blockchain}
 
 Blockchain jest sercem kryptowalut i stanowi rewolucję w dziedzinie rozproszonych baz danych. Blockchain składa się z
-bloków który z kolei zawiera listę transakcji. Wielkość bloku jest ustalona i w przypadku Bitcoin wynosi nie więcej niż
-1MB, co daje około 2000 transakcji na blok.\cite{transakcje} Bitcoin jest zaprojektowany aby nowy blok z transakcjami
-pojawiał się co 10 minut co daje ostatecznie 3-4 transakcje na sekundę. Dla porównania PayPal realizuje średnio 193
-trasakcje na sekundę a Visa 1'667.\cite{porownanieTransakcji}
+bloków który z kolei zawiera listę transakcji. Wielkość bloku jest ustalona i w przypadku Bitcoina wynosi nie więcej niż
+1MB, co daje około 2000 transakcji na blok.\cite{transakcje} Bitcoin jest zaprojektowany tak aby nowy blok z
+transakcjami pojawiał się co 10 minut co daje ostatecznie 3-4 transakcje na sekundę. Dla porównania PayPal realizuje
+średnio 193 trasakcje na sekundę a Visa 1'667.\cite{porownanieTransakcji}
 
 \subsection{Blok}
 
@@ -545,9 +542,11 @@ trasakcje na sekundę a Visa 1'667.\cite{porownanieTransakcji}
 \end{figure}
 
 Na Rycinie~\ref{fig:blockchain} przedstawiony został schemat Blockchainu oraz pojedynczego bloku. Każdy z bloków składa
-się z wartości wyliczonej przy użyciu drzewa skrótów z listy transakcji wchodzących w skład danego bloku, wyniku funkcji
-skrótu obliczonej na podstawie poprzedniego bloku, oraz wartości \textit{Nonce} która zostanie opisana w późniejszej
-części artykułu. Wszystkie z wymienionych elementów są użyte do obliczenia wartości hash danego bloku.
+się z listy transakcji oraz jej wartości jej skrótu wyliczonej przy użyciu drzewa skrótów, skrótu z poprzedniego bloku,
+oraz wartości \textit{Nonce}. Wszystkie z wymienionych elementów są użyte do obliczenia skrótu danego bloku.
+
+Każdy z bloków w Blockchainie musi spełnić warunek aby jego hash zaczynał się op określonej liczby zer. Aby to osiągnąć
+do bloku została dodana wartość \textit{Nonce}. Zmiana jej wartości całkowicie zmienia wartość hash z bloku.
 
 Podział na bloki i zawieranie wartości funkcji skrótu z poprzedniego bloku przypomina strukturę która została użyta do
 budowy systemu Git\cite{git}. Całość tworzy liniową strukturę w której dowolna zmiana bloku z przeszłości (taka jak
@@ -557,22 +556,18 @@ w Blockchainie należy dla każdego z tych bloków ustawić nową wartość hash
 
 \subsection{Kopanie bloków - Proof of work}
 
-Każdy z bloków w Blockchainie musi spełnić warunek aby jego hash zaczynał się op określonej liczby zer. Aby to osiągnąć
-do bloku zostaje dodana wartość \textit{Nonce}. Poprzez modyfikowane jej wartością mamy możliwość wpływania na wartość
-hasha całego bloku. Jako że nie ma możliwości aby uzyskać źródło funkcji skrótu na podstawie jej wyniku jedyną
-możliwością na spełnienie wymagania aby hash zaczynał się od określonej liczby zer jest sprawdzanie kolejnych wartości
-\textit{Nonce} aż trafimy na taką która spełnia to wymaganie.
-
-Znalezienie tej wartości jest bardzo czasochłonne ponieważ jedyny sposób na jej znalezienie to podstawianie kolejnych
-wartości do zmiennej \textit{Nonce} i sprawdzanie czy wartość hasha spełnia wymaganie sieci. Tym zadaniem zajmują się
+Jako że nie ma możliwości aby uzyskać źródło funkcji skrótu na podstawie jej wyniku jedyną możliwością na spełnienie
+wymagania aby hash bloku zaczynał się od określonej liczby zer jest sprawdzanie kolejnych wartości \textit{Nonce} aż
+trafimy na taką która spełnia to wymaganie. Znalezienie tej wartości jest bardzo czasochłonne i tym zadaniem zajmują się
 kopacze bloków którzy w zamian za udostępnienie swojej mocy obliczeniowej dostają wynagrodzenie w danej kryptowalucie.
-To dzięki temu w sieci pojawia się co raz więcej Bitcoinów. Nagroda ta jest zmniejszana o połowę co około 4 lat aż do
-osiągnięcia limitu 21 milionów Bitcoinów w sieci, wtedy kopacze przestaną dostawać wynagrodzenie za samo znajdowanie
-odpowiedniej liczby \textit{Nonce}. Po limitu kopacze będą dostawać wynagrodzenie w postaci prowizji za transakcje.
-Prowizje ustala autor transakcji, im większa prowizja, tym większa szansa na to że jego transakcja znajdzie się w
-kolejnym bloku. W przypadku ustalenia zbyt małej prowizji istnieje ryzyko że transakcja nigdy nie zostanie
-zaakceptowania ponieważ kopacze wybiorą transakcje z większą prowizją do następnego bloku. W czasie pisania artykułu w
-sieci znajdowało się 150'000 transakcji oczekujących na akceptację\cite{niezatwierdzoneTransakcje}.
+To dzięki temu w sieci pojawia się co raz więcej Bitcoinów. Pierwsze bloki w Blockchainie nie zawierały żadnych
+transakcji a jedynie wynagrodzenie dla kopacza. Nagroda ta jest zmniejszana o połowę co 4 lat aż do osiągnięcia limitu
+21 milionów Bitcoinów w sieci, wtedy kopacze przestaną dostawać wynagrodzenie za samo znajdowanie odpowiedniej liczby
+\textit{Nonce}. Po osiągnięciu limitu kopacze będą dostawać wynagrodzenie w postaci prowizji za transakcje.  Prowizje
+ustala autor transakcji, im większa prowizja, tym większa szansa na to że jego transakcja znajdzie się w kolejnym bloku.
+W przypadku ustalenia zbyt małej prowizji istnieje ryzyko że transakcja nigdy nie zostanie zaakceptowania ponieważ
+kopacze wybiorą transakcje z większą prowizją do następnego bloku. W czasie pisania artykułu w sieci znajdowało się
+150'000 transakcji oczekujących na akceptację\cite{niezatwierdzoneTransakcje}.
 
 Wraz ze wzrostem sieci liczba wymaganych zer może ulec zmianie. W sieci Bitcoin ustalenie liczby wymaganych zer
 następuje raz na 2 tygodnie i dobierane jest tak aby wydobycie nowego bloku zajmowało średnio 10 minut.
@@ -581,10 +576,10 @@ następuje raz na 2 tygodnie i dobierane jest tak aby wydobycie nowego bloku zaj
 
 W przypadku gdy ktoś chciałby skompromitować sieć Bitcoin poprzez zmianę jednej z historycznych transakcji, musi wykopać
 jeszcze raz dany blok oraz wszystkie bloki które po nim występują. Dla przypomnienia, trudność wydobycia bloku jest
-dostosowana tak aby całej sieci średnio zajmowało to 10 minut. Prawdopodobieństwo wydobycia dwóch lub więcej bloków niż
-reszta sieci jest bliska zeru. Warunkiem wymaganym do skutecznego ataku jest posiadanie minimum 51\% mocy obliczeniowej
-sieci. W przeciwnym wypadku reszta sieci będzie w stanie szybciej wydobywać nowe bloki co skutkuje powstaniem dłuższego
-łańcucha.
+dostosowana tak aby całej sieci średnio zajmowało to 10 minut. Prawdopodobieństwo wydobycia dwóch lub więcej bloków
+przez jednego kopacza szybciej niż reszta sieci jest bliska zeru. Warunkiem wymaganym do skutecznego ataku jest
+posiadanie minimum 51\% mocy obliczeniowej sieci. W przeciwnym wypadku reszta sieci będzie w stanie szybciej wydobywać
+nowe bloki co skutkuje powstaniem dłuższego łańcucha.
 
 W przypadku istnienia wielu łańcuchów brany jest pod uwagę ten który jest dłuższy. Wynika to z teorii gier która zakłada
 że gracz zyska więcej na przestrzeganiu zasad (akceptacja dłuższego łańcucha i próba wydobycia nowego bloku na jego
@@ -599,12 +594,12 @@ w przyszłości ulegnie podmianie.
 \section{Forki}
 
 Istnieje możliwość celowego rozdzielenia łańcucha Blockchain. Najczęstszym z powodów jest zmiana architektury
-kryptowaluty dzięki której poprawi się jej stabilność. Zazwyczaj po forku właściciele portfeli z Bitcoinami stają się
-właścicielami takiej samej ilości nowej waluty ile posiadali Bitcoinów przed forkiem.
+kryptowaluty dzięki której poprawi się jej stabilność. Zazwyczaj po forku właściciele portfeli z bazową kryptowalutą
+stają się właścicielami takiej samej ilości nowej waluty ile posiadali bazowej przed forkiem.
 
 \subsection{Bitcoin Cash}
 
-Jest to pierwszym \textit{hard forkiem} Bitcoina. Oznacza to iż jego wersja nie jest kompatybilna wstecz z Bitcoinem.
+Jest pierwszym \textit{hard forkiem} Bitcoina. Oznacza to iż jego wersja nie jest kompatybilna wstecz z Bitcoinem.
 Główną zmianą było zwiększenie wielkości bloku z 1MB do 8MB co według założeń twórców spowoduje iż Bitcoin Cash będzie
 bardziej użyteczny przy transferach małych kwot. Sytuacja miała miejsce w momencie gdy za transakcję Bitcoina trzeba
 było zapłacić kilkadziesiąt dolarów.
@@ -612,9 +607,9 @@ było zapłacić kilkadziesiąt dolarów.
 \subsection{Bitcoin Gold}
 
 Kolejny fork Bitcoina który powstał 2.5 miesiąca po forku Bitcoin Cash. Przez wielu uznany za oszustwo i nie powinien
-być brany na poważnie. Wprowadzone zmiany obejmują zmianę algorytmu wykorzystanego do wyliczania skrótu, zmiana z SHA256
-na Equihash. Dodatkowo dostosowanie trudności wydobycia bloku następuje po wykopaniu każdego bloku, w oryginalnym
-Bitcoinie zmiana następuje co 2016 blok.
+być traktowany na poważnie. Wprowadzone zmiany obejmują zmianę algorytmu wykorzystanego do wyliczania skrótu, zmiana z
+SHA256 na Equihash. Dodatkowo dostosowanie trudności wydobycia bloku następuje po wykopaniu każdego bloku, w oryginalnym
+Bitcoinie zmiana następuje co 2016 blok czyli około 2 tygodnie.
 
 \subsection{SegWit2x}
 
@@ -625,14 +620,20 @@ iż już istnieje Bitcoin Cash ze zwiększoną wielkością bloku i kolejny fork
 \section{Ethereum}
 
 W przeciwieństwie do forków, Ethereum jest całkowicie nową walutą która wprowadza możliwość wprowadzenia własnego kodu
-źródłowego do Blockchainu. Dzięki temu Ethereum jest w stanie zaoferować o wiele więcej niż Bitcoin.
+źródłowego do Blockchainu. Dzięki temu Ethereum jest w stanie zaoferować o wiele więcej niż transfery środków.
 
 \subsection{Kontrakty}
 
-Ethereum umożliwia utworzenie kontraktów. Dzięki temu mechanizmowi możliwe jest utworzenie własnej logiki na
-Blockchainie dzięki co umożliwia stworzenie cyfrowych umów odpornych na manipulacje z zewnątrz.  Kontrakt który został
-umieszczony na Blockchainie nie może zostać już zmieniony. Może zostać utworzony nowy, uaktualniony kontrakt, jednak
-istniejącego nie można zmienić.
+Ethereum umożliwia utworzenie kontraktów. Dzięki temu mechanizmowi możliwe jest wykorzystanie blockchainu jako
+rozproszonej bazy danych w której istnieje gwarancja że dane nie zostana zmienione ani usunięte. Kontrakt składa się z
+własnej pamięcie oraz z funkcji które mogą korzystać z tej pamięci i wysyłać walutę na inny adres. Funkcje można
+porównać do procedur znanych z relacyjnych baz danych przy pomocy których można się czytać z pamięcie kontraktu oraz ją
+modyfikować. Czytanie pamięci kontraktu odbywa się bezpłatnie, natomiast jeżeli chcemy wprowadzić zmiany w pamięci
+kontraktu zmuszeni jesteśmy do uiszczenia opłaty za tę operację. Kosz jest proporcjonalny do złożoności obliczeniowej
+operacji którą chcemy wykonać.
+
+Kontrakt który został umieszczony na Blockchainie nie może zostać już zmieniony. Może zostać utworzony nowy, zmieniony
+kontrakt, jednak istniejącego nie można zmienić.
 
 Najprostszym przykładem kontraktu jest dystrybucja Tokenów. Każdy może utworzyć swoje własne Tokeny na Blockchainie
 Ethereum a następnie je sprzedawać za Ethereum. Przykładowo politycy mogą wydawać swoje własne Tokeny które mogą zostać
@@ -648,8 +649,8 @@ wyniku którego wybrany zostaje jednej z uczestników który wygrywa całą pul�
 Kryptowaluty zdają się być rewolucją w bankowości i podejściu do waluty na miarę rewolucji dokonanej przez internet w
 dziedzinie komunikacji. Główną z zalet Kryptowalut jest oderwanie ich od fizycznej postaci, możliwość transferu do
 dowolnego miejsca na Ziemi bez pośredników, przejrzystość oraz brak możliwości dodrukowania. Z góry wiadomo ile
-maksymalnie może ich powstać oraz jakie są zasady dystrybucji. Według wizji niektórych Banki, ubezpieczalnie, zakłady
-bookmacherskie i wszelkie działalności w których występuje transfer pieniędzy będzie można zastąpić odpowiednią
+maksymalnie może ich powstać oraz jakie są zasady dystrybucji. Według wizji wielu osób Banki, ubezpieczalnie, zakłady
+bukmacherskie i wszelkie działalności w których występuje transfer pieniędzy będzie można zastąpić odpowiednią
 Kryptowalutą, Konraktem czy kolejną ideą zbudowaną na na Blockchainie.
 
 Pewne jest to że sama technologia Blockchain zrewolucjonizuje wiele sektorów ponieważ ma wiele do zaoferowania jako
